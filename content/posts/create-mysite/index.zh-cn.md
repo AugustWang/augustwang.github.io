@@ -2,7 +2,7 @@
 weight: 1
 title: "使用Hogo - LoveIt主题搭建这个网站"
 date: 2025-11-02T22:26:43+08:00
-lastmod: 2025-11-02T22:36:43+08:00
+lastmod: 2025-11-09T22:36:43+08:00
 draft: false
 author: "August"
 authorLink: "https://augustwang.github.io"
@@ -12,8 +12,8 @@ resources:
 - name: "featured-image"
   src: "featured-image.png"
 
-tags: ["Markdown", "HTML"]
-categories: ["Markdown"]
+tags: ["content", "HTML"]
+categories: ["documentation"]
 
 lightgallery: true
 ---
@@ -149,7 +149,7 @@ cp -rf themes/LoveIt/exampleSite .
 
 部署有多种方式，可以自有服务器部署，也可以选择GitHub Pages，
 
-下面主要介绍GitHub Pages的部署方式：
+下面主要介绍两种GitHub Pages的部署方式：
 
 - 一种是使用 GitHub Actions 部署，可以绑定自定义域名
 
@@ -185,13 +185,20 @@ git push -u origin master
 
 ### 4.2 静态网站部署到GitHub Pages
 
-直接使用静态文件部署, 本地运行
+1. 直接使用静态文件部署, 本地运行
 
 ```bash
 hugo server -D
 ```
 
 运行后，会在项目目录中生成一个 `public` 目录文件，这里面是Hugo生成的整个静态网站。
+
+
+2. 生成 public 静态资源页面
+
+```bash
+hugo --buildDrafts --theme=LoveIt --baseUrl https://username.github.io --config hugo.toml -d public
+```
 
 直接将 `public` 目录上传到 `username.github.io` 仓库，这样就可以直接访问网站了。
 
@@ -329,8 +336,98 @@ jobs:
 
 5. 将更改提交到本地 Git 仓库，然后推送到 GitHub 仓库。
 
-6. 从 GitHub 主菜单中选择“操作”。您将看到类似这样的界面：
+将主题作为项目子模块提交
+```bash
+git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+```
+
+获取完成后，可以选择子模块对应的tag,比如下面选择 tag:v0.3.0 版本
+```bash
+cd themes/LoveIt
+git checkout v0.3.0
+```
+
+查看状态
+```bash
+git submodule status
+f59fb4ecc2ce6c95e0b3395e3d3da9637d5581cd themes/LoveIt (v0.2.11-169-gf59fb4ec)
+```
+
+6. 从 GitHub 主菜单中选择 Actions 。将看到类似这样的界面：
+
+选择 run workflow
+![github actions build and deploy](github-actions-build-and-deploy.zh-cn.png
+ "github actions build and deploy")
+
+运行完成后
+![github actions workflows](github-actions-workflows.zh-cn.png "github actions workflows")
+
+点击可以看到结果
+![github actions workflows runs](github-actions-workflows-runs.zh-cn.png "github actions workflows runs")
+
+
+## 5 评论系统
+
+[giscus](https://giscus.app/zh-CN) 是由 [GitHub Discussions](https://docs.github.com/en/discussions) 驱动的评论系统。
+
+### 5.1 GitHub 开启 Discussions 功能
+
+在自己的 github pages 项目下开启 Discussions 功能。
+
+详细操作流程：[Enabling GitHub Discussions on your repository](https://docs.github.com/en/discussions/quickstart#enabling-github-discussions-on-your-repository)
+
+### 5.2 安装 giscus app
+
+打开 [giscus apps](https://github.com/apps/giscus), 点击安装。
+
+![giscus apps install](giscus-apps-install.zh-cn.png "giscus apps install")
+
+再次授权安装即可。
+
+![giscus install](giscus-install.zh-cn.png "giscus install")
+
+### 5.3 将 Discussion 连接到项目仓库
+
+1. 打开 [giscus.app/zh-CN](https://giscus.app/zh-CN)，
+
+![giscus Discussion connect](giscus-discussion-connect.zh-cn.png "giscus Discussion connect")
+
+输入自己网站仓库名称就可以安装
+
+2. 然后在下面的 Discussion 分类 中选择使用公告（announcements）类型的分类
+
+![discussion announcements](discussion-announcements.zh-cn.png "discussion announcements")
+
+3. 最后 在 **启用 giscus** 可以看到生成的 `<script>` 标签代码
+
+![giscus script](giscus-script.zh-cn.png "giscus script")
+将代码中的参数复制到 hugo.toml 配置中即可
+
+配置示例如下：
+```toml
+      # giscus comment config (https://giscus.app/)
+      # giscus comment 评论系统设置 (https://giscus.app/zh-CN)
+      [params.page.comment.giscus]
+        # You can refer to the official documentation of giscus to use the following configuration.
+        # 你可以参考官方文档来使用下列配置
+        enable = true
+        repo = "AugustWang/augustwang.github.io"
+        repoId = "R_kgDOQRzntQ"
+        category = "Announcements"
+        categoryId = "DIC_kwDOQRzntc4Cxmnx"
+        # automatically adapt the current theme i18n configuration when empty
+        # 为空时自动适配当前主题 i18n 配置
+        lang = "zh-CN"
+        mapping = "pathname"
+        reactionsEnabled = "1"
+        emitMetadata = "0"
+        inputPosition = "bottom"
+        lazyLoading = false
+        lightTheme = "light"
+        darkTheme = "dark"
+
+```
+提交配置文件，后续就可以在文章中评论了。
 
 
 
-### 4.2 评论系统
