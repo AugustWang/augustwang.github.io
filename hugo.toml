@@ -575,14 +575,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       [params.page.comment.giscus]
         # You can refer to the official documentation of giscus to use the following configuration.
         # 你可以参考官方文档来使用下列配置
-        enable = false
-        repo = ""
-        repoId = ""
+        enable = true
+        repo = "AugustWang/augustwang.github.io"
+        repoId = "R_kgDOQRzntQ"
         category = "Announcements"
-        categoryId = ""
+        categoryId = "DIC_kwDOQRzntc4Cxmnx"
         # automatically adapt the current theme i18n configuration when empty
         # 为空时自动适配当前主题 i18n 配置
-        lang = ""
+        lang = "zh-CN"
         mapping = "pathname"
         reactionsEnabled = "1"
         emitMetadata = "0"
