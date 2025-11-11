@@ -20,6 +20,8 @@ lightgallery: true
 
 这篇文章主要记录使用 Hogo - **LoveIt** 主题搭建这个网站的过程.
 
+<!--more-->
+
 ## 1 准备
 
 [了解 Hugo - **LoveIt** 主题的全部内容和背后的核心概念.](https://hugoloveit.com/zh-cn/theme-documentation-basics/)
@@ -35,6 +37,16 @@ lightgallery: true
 LoveIt 主题 **0.3.x版本** 依赖Hogo 0.128.0及以上版本，
 所以要选择安装对版本，否则运行主题时会报错。
 
+{{< admonition note "主题的兼容性" >}}
+
+| 分支或版本 | 支持的 Hugo 版本 |
+|:---- |:----:|
+| master(不稳定) | ≥ 0.128.0 |
+| **0.3.X(推荐)** | 0.128.0 - 0.143.1 |
+| 0.2.X(过时) | 0.68.0 - 0.127.0 |
+
+{{< /admonition >}}
+
 [在Mac系统下安装或升级Hogo](https://gohugo.io/installation/macos/)
 ```bash
 brew upgrade hugo
@@ -47,13 +59,13 @@ hugo v0.125.5+extended darwin/amd64 BuildDate=2024-05-01T15:22:11Z VendorInfo=br
 
 这个时候可以选择源码编译的方式安装：
 ```bash
-go install github.com/gohugoio/hugo@latest
+go install github.com/gohugoio/hugo@v0.143.1
 ```
 
 安装后查看版本：
 ```bash
 $GOPATH/bin/hugo version
-hugo v0.152.2 darwin/amd64 BuildDate=unknown
+hugo v0.143.1 darwin/amd64 BuildDate=unknown
 ```
 
 ### 2.2 创建项目
@@ -215,7 +227,7 @@ hugo --buildDrafts --theme=LoveIt --baseUrl https://username.github.io --config 
       dir = ':cacheDir/images'
 ```
 
-3. 在名为 hugo.yaml 的目录中创建一个名为 .github/workflows 的文件
+3. 在名为 .github/workflows 的目录中创建一个名为 hugo.yaml 的文件
 
 ```bash
 mkdir -p .github/workflows
