@@ -12,7 +12,7 @@ resources:
 - name: "featured-image"
   src: "featured-image.jpeg"
 
-tags: ["content"]
+tags: ["content", "SSH"]
 categories: ["documentation"]
 
 lightgallery: true
